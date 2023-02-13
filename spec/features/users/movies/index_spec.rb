@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'The Movie Results Index', type: :feature do
-  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com") }
-  let!(:user2) { User.create!(name: "Thomas", email: "thomas@gmail.com") }
-  let!(:user3) { User.create!(name: "Jessica", email: "jessica@gmail.com") }
+  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com", password: "password") }
+  let!(:user2) { User.create!(name: "Thomas", email: "thomas@gmail.com", password: "password") }
+  let!(:user3) { User.create!(name: "Jessica", email: "jessica@gmail.com", password: "password") }
   
   describe 'the discover page button' do
     it 'takes a user back to their discover page' do

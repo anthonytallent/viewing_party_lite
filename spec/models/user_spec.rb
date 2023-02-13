@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com") }
-  let!(:user2) { User.create!(name: "Thomas", email: "thomas@gmail.com") }
-  let!(:user3) { User.create!(name: "Jessica", email: "jessica@gmail.com") }
+  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com", password: "password") }
+  let!(:user2) { User.create!(name: "Thomas", email: "thomas@gmail.com", password: "password") }
+  let!(:user3) { User.create!(name: "Jessica", email: "jessica@gmail.com", password: "password") }
   let!(:party1) { Party.create!(duration: 160, start_time: Time.now, movie_id: 1 ) }
   let!(:party2) { Party.create!(duration: 160, start_time: Time.now, movie_id: 2 ) }
   let!(:user_party1) { UserParty.create!(user: user1, party: party1, is_host: true) } 
@@ -20,6 +20,7 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of :name }
     it { should validate_presence_of :email }
     it { should validate_uniqueness_of :email }
+    it {should validate_presence_of :password}
   end
 
   describe '#hosted_parties' do

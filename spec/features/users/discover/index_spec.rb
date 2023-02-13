@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Discover Index Page', type: :feature do
-  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com") }
+  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com", password: "password") }
 
   describe "the default basics" do
     it 'has a title' do
