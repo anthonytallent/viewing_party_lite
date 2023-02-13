@@ -18,6 +18,7 @@ RSpec.describe "new page", type: :feature do
       fill_in(:name, with: "Tony Pepperoni")
       fill_in(:email, with: "thebigpepperoni@gmail.com")
       fill_in(:password, with: "password")
+      fill_in(:password_confirmation, with: "password")
 
       click_button "Register"
       
@@ -44,6 +45,22 @@ RSpec.describe "new page", type: :feature do
         click_button "Register"
 
         expect(page).to have_content("Email has already been taken")
+      end
+
+      it "will not allow registration with passwords that don't match" do
+        visit register_path
+
+        fill_in(:name, with: "Tony Pepperoni")
+        fill_in(:email, with: "thebigpepperoni@gmail.com")
+        fill_in(:password, with: "password")
+        fill_in(:password_confirmation, with: "paword")
+  
+        click_button "Register"
+
+        expect(page).to have_field(:name)
+        expect(page).to have_field(:email)
+        expect(page).to have_field(:password)
+        expect(page).to have_field(:password_confirmation)
       end
     end
   end
