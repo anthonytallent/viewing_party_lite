@@ -17,6 +17,7 @@ RSpec.describe "new page", type: :feature do
 
       fill_in(:name, with: "Tony Pepperoni")
       fill_in(:email, with: "thebigpepperoni@gmail.com")
+      fill_in(:password, with: "password")
 
       click_button "Register"
       
@@ -30,7 +31,7 @@ RSpec.describe "new page", type: :feature do
 
         click_button "Register"
     
-        expect(page).to have_content("Name can't be blank and Email can't be blank")
+        expect(page).to have_content("Name can't be blank, Email can't be blank, and Password can't be blank")
       end
 
       it 'will only allow unique email addresses (no copies) to sign up' do
@@ -38,6 +39,7 @@ RSpec.describe "new page", type: :feature do
 
         fill_in(:name, with: "Tony")
         fill_in(:email, with: "anthony@gmail.com")
+        fill_in(:password, with: "password")
 
         click_button "Register"
 
