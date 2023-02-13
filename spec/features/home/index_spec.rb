@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "index page", type: :feature do
-  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com") }
-  let!(:user2) { User.create!(name: "Thomas", email: "thomas@gmail.com") }
-  let!(:user3) { User.create!(name: "Jessica", email: "jessica@gmail.com") }
-  let!(:user4) { User.create!(name: "Alex", email: "alex@gmail.com") }
-  let!(:user5) { User.create!(name: "Kelsie", email: "kelsie@gmail.com") }
+  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com", password: "password") }
+  let!(:user2) { User.create!(name: "Thomas", email: "thomas@gmail.com", password: "password") }
+  let!(:user3) { User.create!(name: "Jessica", email: "jessica@gmail.com", password: "password") }
+  let!(:user4) { User.create!(name: "Alex", email: "alex@gmail.com", password: "password") }
+  let!(:user5) { User.create!(name: "Kelsie", email: "kelsie@gmail.com", password: "password") }
 
   describe 'Page Defaults' do
     it 'The title of the application' do

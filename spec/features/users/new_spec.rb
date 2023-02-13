@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "new page", type: :feature do
-  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com") }
+  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com", password: "password") }
 
   describe 'new user form' do
     it 'has a name and email' do
@@ -9,6 +9,7 @@ RSpec.describe "new page", type: :feature do
 
       expect(page).to have_field(:name)
       expect(page).to have_field(:email)
+      expect(page).to have_field(:password)
     end
 
     it 'can create a new user' do

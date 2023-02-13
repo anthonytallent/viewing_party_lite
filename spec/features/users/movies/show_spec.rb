@@ -13,9 +13,9 @@ RSpec.describe 'The Movie Details (Show) Page', type: :feature do
   end
 
   let!(:movie1) { 51888 }
-  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com") }
-  let!(:user2) { User.create!(name: "Thomas", email: "thomas@gmail.com") }
-  let!(:user3) { User.create!(name: "Jessica", email: "jessica@gmail.com") }
+  let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com", password: "password") }
+  let!(:user2) { User.create!(name: "Thomas", email: "thomas@gmail.com", password: "password") }
+  let!(:user3) { User.create!(name: "Jessica", email: "jessica@gmail.com", password: "password") }
   
   describe 'the page basics' do
     it 'has a button to return to Discover Page' do
