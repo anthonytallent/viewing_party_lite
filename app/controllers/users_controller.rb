@@ -1,13 +1,16 @@
 class UsersController < ApplicationController
+  before_action :validate_user, only: :show
   def new
 
   end
 
   def create
+    # validate_user is in the application_controller
     user = User.new(user_params)
     if user.save
+      session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.name}"
-      redirect_to user_path(user)
+      redirect_to dashboard_path
     else
       flash[:error] = user.errors.full_messages.to_sentence
       render :new
@@ -17,8 +20,9 @@ class UsersController < ApplicationController
   def login_user
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
+      session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.name}!"
-      redirect_to user_path(user)
+      redirect_to dashboard_path
     else
       flash[:error] = "Invalid email or password"
       render :login_form
@@ -26,7 +30,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    # @user = User.find_by(email: params[:email])
+  end
+
+  def log_out
+    session.delete(:user_id)
+    @user = nil
+    redirect_to root_path
   end
 
   private

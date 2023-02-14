@@ -1,48 +1,57 @@
 require 'rails_helper'
 
 RSpec.describe 'The Movie Details (Show) Page', type: :feature do
-  before :each do
-    stub_request(:get, "https://api.themoviedb.org/3/movie/51888/credits?api_key").
-    to_return(status: 200, body: File.read("spec/fixtures/robot_chicken_credits_response.json"), headers: {})
-
-    stub_request(:get, "https://api.themoviedb.org/3/movie/51888?api_key").
-    to_return(status: 200, body: File.read("spec/fixtures/robot_chicken_response.json"), headers: {})
-  
-    stub_request(:get, "https://api.themoviedb.org/3/movie/51888/reviews?api_key").
-    to_return(status: 200, body: File.read("spec/fixtures/citizen_kane_reviews_response.json"), headers: {})
-  end
-
   let!(:movie1) { 51888 }
   let!(:user1) { User.create!(name: "Anthony", email: "anthony@gmail.com", password: "password") }
   let!(:user2) { User.create!(name: "Thomas", email: "thomas@gmail.com", password: "password") }
   let!(:user3) { User.create!(name: "Jessica", email: "jessica@gmail.com", password: "password") }
+
+  before :each do
+    stub_request(:get, "https://api.themoviedb.org/3/movie/51888/credits?api_key").
+    to_return(status: 200, body: File.read("spec/fixtures/robot_chicken_credits_response.json"), headers: {})
+
+    # stub_request(:get, "https://api.themoviedb.org/3/movie/?api_key").
+    # to_return(status: 200, body: File.read("spec/fixtures/robot_chicken_response.json"), headers: {})
+    
+    stub_request(:get, "https://api.themoviedb.org/3/movie/51888?api_key").
+    to_return(status: 200, body: File.read("spec/fixtures/robot_chicken_response.json"), headers: {})
+
+    stub_request(:get, "https://api.themoviedb.org/3/movie/51888/reviews?api_key").
+    to_return(status: 200, body: File.read("spec/fixtures/citizen_kane_reviews_response.json"), headers: {})
+
+    visit login_path
+    fill_in :email, with: user1.email
+    fill_in :password, with: user1.password
+    click_button "Login"
+  end
+
   
   describe 'the page basics' do
     it 'has a button to return to Discover Page' do
-      visit user_movie_path(user1, movie1)
+      visit movie_path(movie1)
 
       expect(page).to have_button("Discover Page")
 
       click_button("Discover Page")
 
-      expect(current_path).to eq(user_discover_index_path(user1))
+      expect(current_path).to eq(discover_path)
 
       expect(page).to have_content("#{user1.name}'s Discover Movies Page")
     end
 
     it 'has a button to create a viewing party' do
-      visit user_movie_path(user1, movie1)
+      visit movie_path(movie1)
 
       expect(page).to have_button("Create Viewing Party")
       click_button "Create Viewing Party"
 
-      expect(current_path).to eq(new_user_movie_party_path(user1, movie1))
+      expect(current_path).to eq("/movies/#{movie1}/parties/new")
     end
   end
 
   describe 'The Movie Information' do
     it 'will list the movie title, vote-average, and run-time information' do
-      visit user_movie_path(user1, movie1)
+      visit movie_path(movie1)
 
       expect(page).to have_content("Robot Chicken: Star Wars Episode III")
       expect(page).to have_content(7.4)
@@ -52,7 +61,7 @@ RSpec.describe 'The Movie Details (Show) Page', type: :feature do
     end
 
     it 'lists the thespians for a given movie' do
-      visit user_movie_path(user1, movie1)
+      visit movie_path(movie1)
 
       within("#cast-information") do
         expect(page).to have_content("Cast Information")
@@ -70,7 +79,7 @@ RSpec.describe 'The Movie Details (Show) Page', type: :feature do
     end
 
     it "lists the review information for the movie" do
-      visit user_movie_path(user1, movie1)
+      visit movie_path(movie1)
 
       within("#review-information") do
         expect(page).to have_content("Reviews")

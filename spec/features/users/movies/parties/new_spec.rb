@@ -4,6 +4,11 @@ RSpec.describe 'Parties New Page', type: :feature do
   before :each do
     stub_request(:get, 'https://api.themoviedb.org/3/movie/51888?api_key')
       .to_return(status: 200, body: File.read('spec/fixtures/robot_chicken_response.json'), headers: {})
+    
+    visit login_path
+    fill_in :email, with: user1.email
+    fill_in :password, with: user1.password
+    click_button "Login"
   end
   let!(:user1) { User.create!(name: 'Anthony', email: 'anthony@gmail.com', password: "password") }
   let!(:user2) { User.create!(name: 'Thomas', email: 'thomas@gmail.com', password: "password") }
@@ -11,7 +16,7 @@ RSpec.describe 'Parties New Page', type: :feature do
   let!(:movie1) { 51_888 }
   describe 'The basics of the page' do
     it 'has a title' do
-      visit new_user_movie_party_path(user1, movie1)
+      visit new_movie_party_path(movie1)
 
       expect(page).to have_content('Robot Chicken: Star Wars Episode III')
     end
@@ -19,7 +24,7 @@ RSpec.describe 'Parties New Page', type: :feature do
 
   describe 'create viewing party form' do
     it 'can create viewing parties' do
-      visit new_user_movie_party_path(user1, movie1)
+      visit new_movie_party_path(movie1)
 
       expect(page).to have_field(:duration)
       expect(page).to have_field(:date)
@@ -33,13 +38,13 @@ RSpec.describe 'Parties New Page', type: :feature do
 
       click_button 'Create Party'
 
-      expect(current_path).to eq(user_path(user1))
+      expect(current_path).to eq(dashboard_path)
     end
   end
 
   describe 'sad path create viewing party form' do
     it 'can create viewing parties' do
-      visit new_user_movie_party_path(user1, movie1)
+      visit new_movie_party_path(movie1)
 
       click_button 'Create Party'
 
@@ -55,7 +60,7 @@ RSpec.describe 'Parties New Page', type: :feature do
 
       click_button 'Create Party'
 
-      expect(current_path).to eq(user_path(user1))
+      expect(current_path).to eq(dashboard_path)
     end
   end
 end

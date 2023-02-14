@@ -12,7 +12,7 @@
         <% end %>
       <% end %>
       <p>
-      <%= link_to party.movie.title, user_movie_path(@user, party.movie_id) %><br>
+      <%= link_to party.movie.title, movie_path(party.movie.id) %><br>
       <p>
       <img src="https://image.tmdb.org/t/p/w500<%= party.movie.poster %>" ><br>
       <p></p>
