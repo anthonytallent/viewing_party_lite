@@ -13,10 +13,10 @@ class Party < ApplicationRecord
     User.where(id: userparty.user_id)[0].name
   end
 
-  def create_user_parties(params)
-    potential_guests = User.where.not(id: params[:user_id])
+  def create_user_parties(params, user_id)
+    potential_guests = User.where.not(id: user_id)
 
-    UserParty.create!(user_id: params[:user_id], party_id: id, is_host: true)
+    UserParty.create!(user_id: user_id, party_id: id, is_host: true)
 
     potential_guests.each do |guest|
       UserParty.create!(user_id: guest.id, party_id: id, is_host: false) if params[guest.id.to_s.to_sym] == '1'

@@ -21,6 +21,7 @@ class MovieFacade
   end
 
   def self.find_cast(movie_id)
+    # binding.pry
     data = MovieService.find_cast_response(movie_id)
     data[:cast].map do |actor_information|
       MovieActor.new(actor_information) if actor_information[:known_for_department] == 'Acting'

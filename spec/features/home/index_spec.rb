@@ -24,6 +24,7 @@ RSpec.describe "index page", type: :feature do
   end
 
   describe "Create new user button" do
+    
     it 'has a button to create a new user' do
       visit root_path
 
@@ -42,6 +43,13 @@ RSpec.describe "index page", type: :feature do
   end
 
   describe 'the existing users area' do
+    before :each do
+      visit login_path
+      fill_in :email, with: user1.email
+      fill_in :password, with: user1.password
+      click_button "Login"
+    end
+
     it 'has a list of existing users names' do
       visit root_path
 
@@ -58,15 +66,15 @@ RSpec.describe "index page", type: :feature do
       visit root_path
       
       within("#user-#{user1.id}") do
-        expect(page).to have_link("#{user1.email}", href: user_path(user1))
+        expect(page).to have_content(user1.email)
       end
 
       within("#user-#{user2.id}") do
-        expect(page).to have_link("#{user2.email}", href: user_path(user2))
+        expect(page).to have_content(user2.email)
       end
 
       within("#user-#{user3.id}") do
-        expect(page).to have_link("#{user3.email}", href: user_path(user3))
+        expect(page).to have_content(user3.email)
       end
     end
   end
