@@ -1,22 +1,33 @@
 # Viewing Party
 
-This is the base repo for the [Viewing Party Lite project](https://backend.turing.edu/module3/projects/viewing_party_lite) used for Turing's Backend Module 3.
+## Table of Contents
 
-### About this Project
+- [About The Project](#about-the-project)
+- [Database Design](#database-design)
+- [Configuration](#configuration)
+- [Developers](#developers)
 
-Viewing Party Lite is an application in which users can explore movie options and create a viewing party event for themselves and other users of the application.
+## About The Project
 
-## Setup
+- Viewing Party is an application that enables users to explore movie options, learn where they can watch a given movie, and create a viewing party event for themselves and other users of the application.
+- 3rd Party API consumption from [The MovieDB](https://www.themoviedb.org/)
+- The first one-week sprint Pair Project in Mod 3 of Turing's Back-End Program (2111 BE Cohort)
+- Bootstrap styling, Google OAuth, 'where to watch' feature and Developer's Picks feature are solo refactor/feature additions.
+- Available on Heroku at [ViewingParty](https://viewingparty909.herokuapp.com)
+- [Turing Project Page](https://backend.turing.edu/module3/projects/viewing_party_lite/index)
 
-1. Fork and Clone the repo
-2. Install gem packages: `bundle install`
-3. Setup the database: `rails db:create`
+## Database Design
 
+[viewing-party.png](https://postimg.cc/TpY0zscg)
 
-## Versions
+## Configuration 
+|             |               |               |               |
+|   :----:    |    :----:     |    :----:     |    :----:     |
+| Ruby 2.7.x  | SQL           | SimpleCov     | Faraday       |
+| Rails 5.2.x | Github        | bcrypt        | VSCode        |
+| RSpec       | HTML5         | Google OAuth  | Webmock       |
+| Pry         | Git.      
 
-- Ruby 2.7.2
-
-- Rails 5.2.6
-
-Example wireframes to follow are found [here](https://backend.turing.edu/module3/projects/viewing_party_lite/wireframes)
+### Developers
+   -[Anthony Blackwell Tallent](https://github.com/anthonytallent)<br>
+   -[Anthony Ongaro ](https://github.com/ajongaro)
